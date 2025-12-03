@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 
 # -------- HARD-CODED VALUES ---------
 SYMBOL = "CITH.N0000"
-TARGET_PRICE = 35.00
+TARGET_PRICE = 3.5
 
 SMTP_EMAIL = "dmdsnd.alerts@gmail.com"
 SMTP_PASSWORD = "sjwthobkcorwplyf"  # Gmail App Password
