@@ -46,28 +46,28 @@ def check_price():
 st.title(f"📊 {SYMBOL} Price Monitor")
 st.write(f"**Target Price:** {TARGET_PRICE} LKR")
 
-# Add a refresh button
-if st.button("🔄 Check Price Now"):
-    try:
-        with st.spinner("Checking price..."):
-            price = check_price()
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            
-            st.metric(
-                label="Current Price",
-                value=f"{price} LKR",
-                delta=f"{price - TARGET_PRICE:.2f}"
-            )
-            
-            if price > TARGET_PRICE:
-                send_email_alert(price)
-                st.success(f"✅ ALERT SENT! Price is above target.")
-            else:
-                st.info(f"ℹ️ No alert — price is below target")
-            
-            st.text(f"Last checked: {current_time}")
-            
-    except Exception as e:
-        st.error(f"Error: {str(e)}")
+# Automatically check price on every page load
+try:
+    with st.spinner("Checking price..."):
+        price = check_price()
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        st.metric(
+            label="Current Price",
+            value=f"{price} LKR",
+            delta=f"{price - TARGET_PRICE:.2f}"
+        )
+        
+        if price > TARGET_PRICE:
+            send_email_alert(price)
+            st.success(f"✅ ALERT SENT! Price is above target.")
+        else:
+            st.info(f"ℹ️ No alert — price is below target")
+        
+        st.text(f"Last checked: {current_time}")
+        
+except Exception as e:
+    st.error(f"Error: {str(e)}")
 
-st.info("💡 Tip: Use UptimeRobot or similar service to ping this app every 5 minutes to keep it alive and auto-check prices.")
+st.divider()
+st.caption("💡 This app checks the price automatically on every page load. Set up UptimeRobot to ping this URL every 5 minutes.")
